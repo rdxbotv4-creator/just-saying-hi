@@ -7,6 +7,10 @@ import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 
+// Username logins map to an internal email; the prefix lets short owner passwords meet the minimum length.
+const ADMIN_DOMAIN = "novelsforever.app";
+const PASS_PREFIX = "nf-";
+
 type AuthSearch = { redirect?: string | undefined };
 
 function safePath(value: string | undefined): string {
@@ -67,7 +71,10 @@ function AuthPage() {
     setBusy(true);
     try {
       if (mode === "signin") {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        const login = email.includes("@") ? email.trim() : `${email.trim().toLowerCase()}@${ADMIN_DOMAIN}`;
+        const pass = email.includes("@") ? password : `${PASS_PREFIX}${password}`;
+        const { error } = await supabase.auth.signInWithPassword({ email: login, password: pass });
+        if (error) throw new Error("Wrong username or password.");
         if (error) throw error;
       } else if (mode === "signup") {
         const { data, error } = await supabase.auth.signUp({
@@ -96,7 +103,7 @@ function AuthPage() {
     if (result.error) toast.error("Google sign-in failed. Please try again.");
   };
 
-  const title = mode === "signin" ? "Owner sign in" : mode === "signup" ? "Create owner account" : "Reset password";
+  const title = mode === "signin" ? "Admin portal" : mode === "signup" ? "Create owner account" : "Reset password";
 
   return (
     <div className="mx-auto flex max-w-md flex-col px-4 py-20">
@@ -117,9 +124,9 @@ function AuthPage() {
               </Button>
             )}
             <form onSubmit={submit} className="mt-4 space-y-3">
-              <Input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" aria-label="Email" autoComplete="email" />
+              <Input type={mode === "signin" ? "text" : "email"} required value={email} onChange={(e) => setEmail(e.target.value)} placeholder={mode === "signin" ? "Username" : "Email"} aria-label={mode === "signin" ? "Username" : "Email"} autoComplete="username" />
               {mode !== "forgot" && (
-                <Input type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" aria-label="Password" autoComplete={mode === "signup" ? "new-password" : "current-password"} />
+                <Input type="password" required minLength={mode === "signin" ? 1 : 6} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" aria-label="Password" autoComplete={mode === "signup" ? "new-password" : "current-password"} />
               )}
               <Button type="submit" variant="gold" className="w-full" disabled={busy}>
                 {busy ? "Please wait…" : mode === "signin" ? "Sign in" : mode === "signup" ? "Create account" : "Send reset link"}
