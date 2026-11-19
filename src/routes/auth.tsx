@@ -128,7 +128,6 @@ function AuthPage() {
             </form>
           </>
         )}
-        </div>
       </div>
       <Link to="/" className="mt-6 text-center text-sm text-muted-foreground hover:text-primary">← Back to the library</Link>
     </div>
