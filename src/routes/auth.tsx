@@ -117,12 +117,6 @@ function AuthPage() {
           <p className="mt-6 rounded-lg border border-primary/40 p-4 text-sm">{sent}</p>
         ) : (
           <>
-            {mode !== "forgot" && (
-              <Button type="button" variant="google" className="mt-6 h-10 w-full rounded-full px-3" onClick={() => void google()}>
-                <GoogleLogo />
-                Continue with Google
-              </Button>
-            )}
             <form onSubmit={submit} className="mt-4 space-y-3">
               <Input type={mode === "signin" ? "text" : "email"} required value={email} onChange={(e) => setEmail(e.target.value)} placeholder={mode === "signin" ? "Username" : "Email"} aria-label={mode === "signin" ? "Username" : "Email"} autoComplete="username" />
               {mode !== "forgot" && (
@@ -134,15 +128,6 @@ function AuthPage() {
             </form>
           </>
         )}
-        <div className="mt-6 flex flex-wrap justify-between gap-2 text-sm">
-          {mode === "signin" ? (
-            <>
-              <button type="button" className="cursor-pointer text-primary hover:underline" onClick={() => { setMode("signup"); setSent(null); }}>Create an account</button>
-              <button type="button" className="cursor-pointer text-muted-foreground hover:text-primary" onClick={() => { setMode("forgot"); setSent(null); }}>Forgot password?</button>
-            </>
-          ) : (
-            <button type="button" className="cursor-pointer text-primary hover:underline" onClick={() => { setMode("signin"); setSent(null); }}>Back to sign in</button>
-          )}
         </div>
       </div>
       <Link to="/" className="mt-6 text-center text-sm text-muted-foreground hover:text-primary">← Back to the library</Link>
