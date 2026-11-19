@@ -50,6 +50,9 @@ export function SiteHeader() {
               <span className="max-w-28 truncate">{name ?? "Login"}</span>
             </Button>
           </div>
+          <Button asChild variant="ghost" size="sm">
+            <Link to="/auth">Admin</Link>
+          </Button>
           <Button
             variant="ghost"
             size="icon"
@@ -76,6 +79,13 @@ export function SiteHeader() {
             {item.label}
           </Link>
         ))}
+        <Link
+          to="/auth"
+          onClick={() => setOpen(false)}
+          className="block rounded-md px-3 py-3 text-base text-muted-foreground"
+        >
+          Admin
+        </Link>
       </nav>
     </header>
   );
