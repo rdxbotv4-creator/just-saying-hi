@@ -26,6 +26,8 @@ export default defineConfig({
       manifest: false, // public/manifest.webmanifest is the manifest
       workbox: {
         globPatterns: ["**/*.{js,mjs,css,woff2,png,svg,ico,webp,jpg,webmanifest}"],
+        // Server bundles are never fetched by the browser; precaching them only blows past the size limit.
+        globIgnores: ["**/server/**", "**/shikijs__langs*", "**/mermaid+uuid*", "**/cytoscape*"],
         maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
         cleanupOutdatedCaches: true,
         clientsClaim: true,
