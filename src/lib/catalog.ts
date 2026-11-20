@@ -100,6 +100,12 @@ export const totalNovels = novels.length;
 export const totalVideos = catalog.totalVideos;
 export const totalViews = novels.reduce((sum, n) => sum + n.views, 0);
 
+export const CHANNEL_OWNER = {
+  name: "Nadia Nawaz",
+  role: "Channel owner & narrator",
+  description: "All Novels Forever videos are narrated in Nadia Nawaz's voice.",
+};
+
 export const OWNER = {
   name: "Sardar Rdx",
   whatsapp: "923301068874",

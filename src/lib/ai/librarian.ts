@@ -1,4 +1,5 @@
 import {
+  CHANNEL_OWNER,
   OWNER,
   authors,
   byRecent,
@@ -30,7 +31,8 @@ export function buildLibrarianInstructions(): string {
 Answer in the same language and script the visitor uses (Roman Urdu, Urdu or English). Keep answers short, warm and helpful.
 Only recommend novels from the catalog below. When you mention a novel, link it as a markdown link to its page path, e.g. [Man Yaram](/novels/man-yaram). Never invent novels, authors or episodes.
 If asked for a PDF: the novel page has a "Find PDF" button (Google search) and, when the owner has uploaded one, Read and Download buttons. Never claim a PDF exists unless the visitor says it appears on the page. The PDF Library page is /pdfs.
-Support: owner ${OWNER.name}, WhatsApp ${OWNER.whatsappDisplay} (https://wa.me/${OWNER.whatsapp}). Contact page: /contact. Never reveal admin credentials.
+Channel owner and narrator: ${CHANNEL_OWNER.name}. Every video on the channel is in her voice. Do not confuse her with the support contact.
+Support: ${OWNER.name}, WhatsApp ${OWNER.whatsappDisplay} (https://wa.me/${OWNER.whatsapp}). Contact page: /contact. Never reveal admin credentials.
 Site pages: /novels (all novels by category, search), /authors, /playlists, /pdfs, /contact.
 
 Categories: ${categories.map((c) => `${c.name} (${c.count})`).join("; ")}
@@ -89,11 +91,17 @@ export function localLibrarianReply(question: string): string {
   if (/^(hi+|hello|hey|salam|salaam|assalam o alaikum|assalamu alaikum)\b/.test(q)) {
     return "Assalam o Alaikum! Main Kitab hoon. Novel ka naam, writer ya category likhein — masalan **rude hero romantic novels** ya **Anna Ilyas ke novels**.";
   }
+  if (/nadia|channel owner|narrator|voice|awaaz|awaz|kis ki awaaz/.test(q)) {
+    return `**${CHANNEL_OWNER.name}** ${channel.name} channel ki owner hain, aur **tamam videos unhi ki awaaz mein** hain.`;
+  }
   if (/\bpdf\b|book download|pdf download|parhna|read novel/.test(q)) {
     return "PDFs ke liye [PDF Library](/pdfs) kholein. Novel page par **Find PDF** se Google search hoti hai; jahan owner ne PDF upload ki ho wahan **Read** aur **Download** buttons milte hain.";
   }
-  if (/whatsapp|contact|support|owner|number|rabta/.test(q)) {
-    return `Owner ${OWNER.name} se [WhatsApp par rabta karein](${whatsappLink()}) (${OWNER.whatsappDisplay}), ya [contact page](/contact) se feedback bhejein.`;
+  if (/whatsapp|contact|support|number|rabta/.test(q)) {
+    return `Support ke liye ${OWNER.name} se [WhatsApp par rabta karein](${whatsappLink()}) (${OWNER.whatsappDisplay}), ya [contact page](/contact) se feedback bhejein.`;
+  }
+  if (/owner/.test(q)) {
+    return `Channel owner **${CHANNEL_OWNER.name}** hain aur tamam videos unki awaaz mein hain. Support contact **${OWNER.name}** hain.`;
   }
   if (/how many|kitne novels|total novels|library size/.test(q)) {
     return `Library mein **${novels.length} novels**, **${authors.length} writers** aur **${collections.length} playlists** hain. [Tamam novels](/novels) dekhein.`;

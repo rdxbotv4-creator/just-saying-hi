@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { MessageCircle, Youtube } from "lucide-react";
 import { Logo } from "./Logo";
 import { Button } from "@/components/ui/button";
-import { OWNER, channel, totalNovels, totalVideos, whatsappLink } from "@/lib/catalog";
+import { CHANNEL_OWNER, OWNER, channel, totalNovels, totalVideos, whatsappLink } from "@/lib/catalog";
 
 export function SiteFooter() {
   return (
@@ -26,9 +26,11 @@ export function SiteFooter() {
           </ul>
         </div>
         <div className="space-y-3">
-          <h3 className="font-display text-xl text-primary">Owner & support</h3>
+          <h3 className="font-display text-xl text-primary">Channel & support</h3>
           <p className="text-sm text-muted-foreground">
-            Owner: <span className="text-foreground">{OWNER.name}</span>
+            Channel owner & narrator: <span className="text-foreground">{CHANNEL_OWNER.name}</span>
+            <br />
+            Support: <span className="text-foreground">{OWNER.name}</span>
             <br />
             WhatsApp: <span className="text-foreground">{OWNER.whatsappDisplay}</span>
           </p>

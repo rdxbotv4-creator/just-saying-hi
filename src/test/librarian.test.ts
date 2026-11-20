@@ -23,6 +23,13 @@ describe("Vercel-compatible librarian", () => {
     expect(reply).toContain("/novels/");
   });
 
+  it("knows that Nadia Nawaz owns the channel and narrates every video", () => {
+    const reply = localLibrarianReply("Channel owner kaun hai aur videos kis ki voice mein hain?");
+    expect(reply).toContain("Nadia Nawaz");
+    expect(reply).toContain("tamam videos unhi ki awaaz mein");
+    expect(reply).not.toContain("Sardar Rdx");
+  });
+
   it("keeps PDF and WhatsApp help available without AI", () => {
     expect(localLibrarianReply("PDF kaise download karun?")).toContain("/pdfs");
     expect(localLibrarianReply("WhatsApp number kya hai?")).toContain("+92 330 1068874");

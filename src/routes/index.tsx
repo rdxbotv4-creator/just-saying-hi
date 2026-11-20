@@ -10,6 +10,7 @@ import { Stars } from "@/components/site/Stars";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
+  CHANNEL_OWNER,
   authors,
   byRecent,
   byViews,
@@ -211,6 +212,8 @@ function Home() {
             Listen on <span className="text-gold">{channel.name}</span>
           </h2>
           <p className="relative mx-auto mt-3 max-w-xl text-muted-foreground">
+            Channel owner & narrator: <span className="font-medium text-foreground">{CHANNEL_OWNER.name}</span> — every story in her voice.
+            <br />
             New episodes arrive on YouTube first. Subscribe and turn on the bell.
           </p>
           <Button asChild variant="youtube" size="xl" className="relative mt-8">

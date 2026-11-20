@@ -7,6 +7,7 @@
 - [ ] PDF section: owner admin upload (read + download + counter), "Find PDF" Google search button per novel
 - [x] AI agent that knows all novels (fresh chat each visit, no saving)
 - [x] Vercel-compatible librarian through Anabot, with instant catalog answers when that service is down
+- [x] Show Nadia Nawaz as channel owner and narrator on the website and in agent answers
 - [x] Support/contact: owner Sardar Rdx, WhatsApp 923301068874
 - [ ] Vercel deploy notes
 - [ ] Username-only "login" for reviews (no password), with bouncing arrow animation pointing at Login
